@@ -14,6 +14,8 @@
 		14B43A5828D758F700DD8E76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14B43A5628D758F700DD8E76 /* LaunchScreen.storyboard */; };
 		14B43A6128D7603800DD8E76 /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A6028D7603800DD8E76 /* BusRoute.swift */; };
 		14B43A6328D76BCB00DD8E76 /* TDXToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A6228D76BCB00DD8E76 /* TDXToken.swift */; };
+		14B43A6528DCA92000DD8E76 /* BusDepNDes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A6428DCA92000DD8E76 /* BusDepNDes.swift */; };
+		14B43A6728DCAD8C00DD8E76 /* BusStopOfRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A6628DCAD8C00DD8E76 /* BusStopOfRoute.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		14B43A5928D758F700DD8E76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14B43A6028D7603800DD8E76 /* BusRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRoute.swift; sourceTree = "<group>"; };
 		14B43A6228D76BCB00DD8E76 /* TDXToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDXToken.swift; sourceTree = "<group>"; };
+		14B43A6428DCA92000DD8E76 /* BusDepNDes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusDepNDes.swift; sourceTree = "<group>"; };
+		14B43A6628DCAD8C00DD8E76 /* BusStopOfRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopOfRoute.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +77,9 @@
 			isa = PBXGroup;
 			children = (
 				14B43A6028D7603800DD8E76 /* BusRoute.swift */,
+				14B43A6428DCA92000DD8E76 /* BusDepNDes.swift */,
 				14B43A6228D76BCB00DD8E76 /* TDXToken.swift */,
+				14B43A6628DCAD8C00DD8E76 /* BusStopOfRoute.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -148,10 +154,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14B43A6728DCAD8C00DD8E76 /* BusStopOfRoute.swift in Sources */,
 				14B43A5028D758F300DD8E76 /* ViewController.swift in Sources */,
 				14B43A4C28D758F300DD8E76 /* AppDelegate.swift in Sources */,
 				14B43A6328D76BCB00DD8E76 /* TDXToken.swift in Sources */,
 				14B43A6128D7603800DD8E76 /* BusRoute.swift in Sources */,
+				14B43A6528DCA92000DD8E76 /* BusDepNDes.swift in Sources */,
 				14B43A4E28D758F300DD8E76 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

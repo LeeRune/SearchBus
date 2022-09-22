@@ -8,6 +8,7 @@
 import Foundation
 
 struct BusRoute: Codable {
+    var RouteID: String?
     var RouteName: BusRouteName?
 }
 

@@ -87,7 +87,9 @@ class ViewController: UIViewController {
                 let decoder = JSONDecoder()
                 let createUserResponse = try decoder.decode(TDXToken.self, from: data)
                 self.token = createUserResponse.access_token!
-                self.getBusRoute(token: self.token)
+//                self.getBusRoute(token: self.token)
+//                self.getBusDepNDes(token: self.token, route: "617")
+                self.getBusStops(token: self.token, route: "617", direction: 0)
             } catch  {
                 print(error)
             }
@@ -114,12 +116,102 @@ class ViewController: UIViewController {
                 let response = try decoder.decode([BusRoute].self, from: data)
                                 
                 var busRouteName : String = ""
+                
                 for response in response{
                     guard let routeName = response.RouteName?.Zh_tw else {return}
                     busRouteName = busRouteName + routeName + "\n"
                 }
                 DispatchQueue.main.async {
                     self.busInfoTextView.text = busRouteName
+                }
+            } catch {
+                print(error)
+            }
+        }.resume()
+    }
+    
+    func getBusDepNDes(token: String, route: String) {
+        let tokenURL = URL(string: "https://tdx.transportdata.tw/api/basic/v2//Bus/Route/City/Taipei/\(route)?$format=JSON")!
+        var request = URLRequest(url: tokenURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard
+                let data = data,
+                let response = response as? HTTPURLResponse,
+                error == nil
+            else {                                                               // check for fundamental networking error
+                print("error", error ?? URLError(.badServerResponse))
+                return
+            }
+            print(response.statusCode)
+            do {
+                let decoder = JSONDecoder()
+                let response = try decoder.decode([BusDepNDes].self, from: data)
+                
+                var busDepNDes : String = ""
+                
+                for response in response{
+                    guard let routeName = response.RouteName?.Zh_tw else {return}
+                    
+                    guard let routeDep = response.DepartureStopNameZh else {return}
+                    
+                    guard let routeDes = response.DestinationStopNameZh else {return}
+                    
+                    if routeName == "617" {
+                        busDepNDes = "起始站：\(routeDep)\n終點站：\(routeDes)"
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    self.busInfoTextView.text = busDepNDes
+                }
+            } catch {
+                print(error)
+            }
+        }.resume()
+    }
+    
+    func getBusStops(token: String, route: String, direction: Int) {
+        let tokenURL = URL(string: "https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/Taipei/\(route)?%24format=JSON)")!
+        var request = URLRequest(url: tokenURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard
+                let data = data,
+                let response = response as? HTTPURLResponse,
+                error == nil
+            else {                                                               // check for fundamental networking error
+                print("error", error ?? URLError(.badServerResponse))
+                return
+            }
+            print(response.statusCode)
+            do {
+                let decoder = JSONDecoder()
+                let response = try decoder.decode([BusStopOfRoute].self, from: data)
+                
+                var busStops : String = ""
+                
+                for response in response{
+                    guard let routeName = response.RouteName?.Zh_tw else {return}
+                    
+                    let direction = response.Direction
+                    
+                    let stops = response.Stops
+                    
+                    if routeName == "617" && direction == direction {
+                        for stops in stops {
+                        
+                            guard let stopName = stops.StopName?.Zh_tw else {return}
+                            busStops = busStops + stopName + "\n"
+                        }
+                        break
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    self.busInfoTextView.text = busStops
                 }
             } catch {
                 print(error)
