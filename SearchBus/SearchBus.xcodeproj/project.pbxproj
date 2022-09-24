@@ -16,6 +16,8 @@
 		14B43A6328D76BCB00DD8E76 /* TDXToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A6228D76BCB00DD8E76 /* TDXToken.swift */; };
 		14B43A6528DCA92000DD8E76 /* BusDepNDes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A6428DCA92000DD8E76 /* BusDepNDes.swift */; };
 		14B43A6728DCAD8C00DD8E76 /* BusStopOfRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A6628DCAD8C00DD8E76 /* BusStopOfRoute.swift */; };
+		14B43A6928DEBDA800DD8E76 /* BusInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A6828DEBDA800DD8E76 /* BusInfoDelegate.swift */; };
+		14B43A7128DEC25D00DD8E76 /* GetBusInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A7028DEC25D00DD8E76 /* GetBusInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		14B43A6228D76BCB00DD8E76 /* TDXToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDXToken.swift; sourceTree = "<group>"; };
 		14B43A6428DCA92000DD8E76 /* BusDepNDes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusDepNDes.swift; sourceTree = "<group>"; };
 		14B43A6628DCAD8C00DD8E76 /* BusStopOfRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopOfRoute.swift; sourceTree = "<group>"; };
+		14B43A6828DEBDA800DD8E76 /* BusInfoDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusInfoDelegate.swift; sourceTree = "<group>"; };
+		14B43A7028DEC25D00DD8E76 /* GetBusInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBusInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +84,8 @@
 				14B43A6428DCA92000DD8E76 /* BusDepNDes.swift */,
 				14B43A6228D76BCB00DD8E76 /* TDXToken.swift */,
 				14B43A6628DCAD8C00DD8E76 /* BusStopOfRoute.swift */,
+				14B43A6828DEBDA800DD8E76 /* BusInfoDelegate.swift */,
+				14B43A7028DEC25D00DD8E76 /* GetBusInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -155,10 +161,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				14B43A6728DCAD8C00DD8E76 /* BusStopOfRoute.swift in Sources */,
+				14B43A6928DEBDA800DD8E76 /* BusInfoDelegate.swift in Sources */,
 				14B43A5028D758F300DD8E76 /* ViewController.swift in Sources */,
 				14B43A4C28D758F300DD8E76 /* AppDelegate.swift in Sources */,
 				14B43A6328D76BCB00DD8E76 /* TDXToken.swift in Sources */,
 				14B43A6128D7603800DD8E76 /* BusRoute.swift in Sources */,
+				14B43A7128DEC25D00DD8E76 /* GetBusInfo.swift in Sources */,
 				14B43A6528DCA92000DD8E76 /* BusDepNDes.swift in Sources */,
 				14B43A4E28D758F300DD8E76 /* SceneDelegate.swift in Sources */,
 			);

@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+protocol BusInfoDelegate: AnyObject {
+    func didGetBusRoute(data: String)
+    func didGetBusDepNDes(data: String)
+    func didGetBusStops(data: String)
+}
