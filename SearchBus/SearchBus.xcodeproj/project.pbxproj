@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		14B43A4C28D758F300DD8E76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A4B28D758F300DD8E76 /* AppDelegate.swift */; };
-		14B43A4E28D758F300DD8E76 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A4D28D758F300DD8E76 /* SceneDelegate.swift */; };
 		14B43A5028D758F300DD8E76 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A4F28D758F300DD8E76 /* ViewController.swift */; };
 		14B43A5528D758F700DD8E76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14B43A5428D758F700DD8E76 /* Assets.xcassets */; };
 		14B43A5828D758F700DD8E76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14B43A5628D758F700DD8E76 /* LaunchScreen.storyboard */; };
@@ -23,7 +22,6 @@
 /* Begin PBXFileReference section */
 		14B43A4828D758F300DD8E76 /* SearchBus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchBus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14B43A4B28D758F300DD8E76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		14B43A4D28D758F300DD8E76 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		14B43A4F28D758F300DD8E76 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		14B43A5428D758F700DD8E76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14B43A5728D758F700DD8E76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -68,7 +66,6 @@
 			children = (
 				14B43A5F28D75FFC00DD8E76 /* Model */,
 				14B43A4B28D758F300DD8E76 /* AppDelegate.swift */,
-				14B43A4D28D758F300DD8E76 /* SceneDelegate.swift */,
 				14B43A4F28D758F300DD8E76 /* ViewController.swift */,
 				14B43A5428D758F700DD8E76 /* Assets.xcassets */,
 				14B43A5628D758F700DD8E76 /* LaunchScreen.storyboard */,
@@ -168,7 +165,6 @@
 				14B43A6128D7603800DD8E76 /* BusRoute.swift in Sources */,
 				14B43A7128DEC25D00DD8E76 /* GetBusInfo.swift in Sources */,
 				14B43A6528DCA92000DD8E76 /* BusDepNDes.swift in Sources */,
-				14B43A4E28D758F300DD8E76 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

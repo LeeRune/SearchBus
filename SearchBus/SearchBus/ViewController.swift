@@ -35,9 +35,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
-        setBusRouteButtonConstraints()
-        setBusInfoTextFieldConstraints()
+//        view.backgroundColor = .white
+//        setBusRouteButtonConstraints()
+//        setBusInfoTextFieldConstraints()
         
         getBusInfo.delegate = self
         getBusInfo.getToken()
