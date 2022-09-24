@@ -9,82 +9,130 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let getBusRouteButton : UIButton = {
-        let button = UIButton()
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.black.cgColor
-        button.setTitle("getBusRoute", for: .normal)
-        button.backgroundColor = .black
-        button.addTarget(self, action: #selector(getBusRouteButtonClick), for: .touchUpInside)
-        return button
+    lazy var tableView: UITableView = {
+        let tv = UITableView()
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.delegate = self
+        tv.dataSource = self
+        tv.register(BusRouteCell.self, forCellReuseIdentifier: "cell")
+        
+        return tv
     }()
     
-    let busInfoTextView : UITextView = {
-        let textView = UITextView()
-        textView.text = "some string"
-        textView.textAlignment = .left
-        textView.layer.borderWidth = 1
-        textView.layer.borderColor = UIColor.black.cgColor
-        textView.isEditable = false
-        textView.isSelectable = false
-        return textView
+    lazy var searchController: UISearchController = {
+        let s = UISearchController(searchResultsController: nil)
+        
+        s.obscuresBackgroundDuringPresentation = false
+        s.searchBar.placeholder = "搜尋公車路線"
+        s.searchBar.sizeToFit()
+        s.searchBar.searchBarStyle = .prominent
+        
+        s.searchBar.delegate = self
+        
+        return s
     }()
     
     let getBusInfo: GetBusInfo = GetBusInfo()
-            
+    var busRouteList: [String] = []
+    var filteredBusRouteList: [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        view.backgroundColor = .white
-//        setBusRouteButtonConstraints()
-//        setBusInfoTextFieldConstraints()
+        title = "search"
+        navigationItem.searchController = searchController
         
         getBusInfo.delegate = self
         getBusInfo.getToken()
+        setupElements()
     }
     
-    func setBusRouteButtonConstraints() {
-        view.addSubview(getBusRouteButton)
-        getBusRouteButton.translatesAutoresizingMaskIntoConstraints = false
-        getBusRouteButton.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20).isActive = true
-        getBusRouteButton.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20).isActive = true
-        getBusRouteButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
-        //        getBusRouteButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        getBusRouteButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    func filterBusRouteForSearchText(searchText: String) {
+        filteredBusRouteList = busRouteList.filter({ (busRoute) -> Bool in
+            return busRoute.uppercased().contains(searchText.uppercased())
+        })
+        tableView.reloadData()
     }
     
-    @objc func getBusRouteButtonClick(sender: UIButton!) {
-        getBusInfo.getBusRoute()
-//        getBusInfo.getBusDepNDes(route: "617")
-//        getBusInfo.getBusStops(route: "617", direction: 0)
+    func isSearchBarEmpty() -> Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
     }
     
-    func setBusInfoTextFieldConstraints() {
-        view.addSubview(busInfoTextView)
-        busInfoTextView.translatesAutoresizingMaskIntoConstraints = false
-        busInfoTextView.topAnchor.constraint(equalTo: self.getBusRouteButton.bottomAnchor, constant: 20).isActive = true
-        busInfoTextView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
-        busInfoTextView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20).isActive = true
-        busInfoTextView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20).isActive = true
+    func isFiltering() -> Bool {
+        return searchController.isActive
     }
 }
 
 extension ViewController: BusInfoDelegate {
-    func didGetBusRoute(data: String) {
+    func didGetBusRoute(data: [String]) {
+        self.busRouteList = data
         DispatchQueue.main.async {
-            self.busInfoTextView.text = data
+            self.tableView.reloadData()
         }
     }
     
     func didGetBusDepNDes(data: String) {
-        DispatchQueue.main.async {
-            self.busInfoTextView.text = data
-        }
+        //        DispatchQueue.main.async {
+        //            self.busInfoTextView.text = data
+        //        }
     }
     
     func didGetBusStops(data: String) {
-        DispatchQueue.main.async {
-            self.busInfoTextView.text = data
+        //        DispatchQueue.main.async {
+        //            self.busInfoTextView.text = data
+        //        }
+    }
+}
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering() {
+            return filteredBusRouteList.count
         }
+        return busRouteList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? BusRouteCell else {
+            return UITableViewCell()
+        }
+        
+        let currentBusRoute: String
+        
+        if isFiltering() {
+            currentBusRoute = filteredBusRouteList[indexPath.row]
+        } else {
+            currentBusRoute = busRouteList[indexPath.row]
+        }
+        
+        cell.titleLbl.text = currentBusRoute
+        
+        return cell
+    }
+}
+
+extension ViewController {
+    
+    func setupElements() {
+        view.addSubview(tableView)
+        
+        tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        tableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor).isActive = true
+    }
+}
+
+extension ViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterBusRouteForSearchText(searchText: searchBar.text ?? "")
     }
 }

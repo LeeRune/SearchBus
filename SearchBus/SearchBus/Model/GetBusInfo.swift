@@ -27,7 +27,7 @@ class GetBusInfo {
                 let data = data,
                 let response = response as? HTTPURLResponse,
                 error == nil
-            else {                                                               // check for fundamental networking error
+            else {                                                        // check for fundamental networking error
                 print("error", error ?? URLError(.badServerResponse))
                 return
             }
@@ -35,7 +35,7 @@ class GetBusInfo {
                 let decoder = JSONDecoder()
                 let createUserResponse = try decoder.decode(TDXToken.self, from: data)
                 self.token = createUserResponse.access_token!
-                
+                self.getBusRoute()
             } catch  {
                 print(error)
             }
@@ -61,14 +61,14 @@ class GetBusInfo {
             do {
                 let decoder = JSONDecoder()
                 let response = try decoder.decode([BusRoute].self, from: data)
-                                
-                var busRouteName: String = ""
+                
+                var busRouteList: [String] = []
                 
                 for response in response{
                     guard let routeName = response.RouteName?.Zh_tw else {return}
-                    busRouteName = busRouteName + routeName + "\n"
+                    busRouteList.append(routeName)
                 }
-                self.delegate.didGetBusRoute(data: busRouteName)
+                self.delegate.didGetBusRoute(data: busRouteList)
             } catch {
                 print(error)
             }
@@ -144,7 +144,7 @@ class GetBusInfo {
                     
                     if routeName == "617" && direction == direction {
                         for stops in stops {
-                        
+                            
                             guard let stopName = stops.StopName?.Zh_tw else {return}
                             busStops = busStops + stopName + "\n"
                         }
@@ -153,7 +153,7 @@ class GetBusInfo {
                 }
                 
                 self.delegate.didGetBusDepNDes(data: busStops)
-            
+                
             } catch {
                 print(error)
             }
