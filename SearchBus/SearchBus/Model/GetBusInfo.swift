@@ -11,7 +11,6 @@ class GetBusInfo {
     
     var delegate: BusInfoDelegate!
     let defaults = UserDefaults.standard
-    var token = ""
     let appId = "lirune1122-e88be020-0cb5-43c5"
     let appKey = "ba3f23c3-4a63-4057-9eab-2e54371a22a6"
     let tokenURL = URL(string: "https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token")!
@@ -34,7 +33,8 @@ class GetBusInfo {
             do {
                 let decoder = JSONDecoder()
                 let createUserResponse = try decoder.decode(TDXToken.self, from: data)
-                self.token = createUserResponse.access_token!
+                guard let token = createUserResponse.access_token else {return}
+                self.defaults.set(token, forKey: "token")
                 self.getBusRoute()
             } catch  {
                 print(error)
@@ -44,6 +44,7 @@ class GetBusInfo {
     
     // 取得台北市公車路線
     func getBusRoute() {
+        guard let token = defaults.value(forKey: "token") else {return}
         let tokenURL = URL(string: "https://tdx.transportdata.tw/api/basic/v2/Bus/Route/City/Taipei?format=JSON")!
         var request = URLRequest(url: tokenURL)
         request.httpMethod = "GET"
@@ -61,7 +62,7 @@ class GetBusInfo {
             do {
                 let decoder = JSONDecoder()
                 let response = try decoder.decode([BusRoute].self, from: data)
-                
+               
                 var busRouteList: [String] = []
                 
                 for response in response{
@@ -76,6 +77,7 @@ class GetBusInfo {
     }
     
     func getBusDepNDes(route: String) {
+        guard let token = defaults.value(forKey: "token") else {return}
         let tokenURL = URL(string: "https://tdx.transportdata.tw/api/basic/v2//Bus/Route/City/Taipei/\(route)?$format=JSON")!
         var request = URLRequest(url: tokenURL)
         request.httpMethod = "GET"
@@ -94,18 +96,16 @@ class GetBusInfo {
                 let decoder = JSONDecoder()
                 let response = try decoder.decode([BusDepNDes].self, from: data)
                 
-                var busDepNDes : String = ""
+                var busDepNDes = [String: String]()
                 
                 for response in response{
-                    guard let routeName = response.RouteName?.Zh_tw else {return}
-                    
                     guard let routeDep = response.DepartureStopNameZh else {return}
                     
                     guard let routeDes = response.DestinationStopNameZh else {return}
                     
-                    if routeName == "617" {
-                        busDepNDes = "起始站：\(routeDep)\n終點站：\(routeDes)"
-                    }
+                    busDepNDes.updateValue(routeDep, forKey: "routeDep")
+                    busDepNDes.updateValue(routeDes, forKey: "routeDes")
+                    
                 }
                 self.delegate.didGetBusDepNDes(data: busDepNDes)
             } catch {
@@ -115,8 +115,9 @@ class GetBusInfo {
     }
     
     func getBusStops(route: String, direction: Int) {
-        let tokenURL = URL(string: "https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/Taipei/\(route)?%24format=JSON)")!
-        var request = URLRequest(url: tokenURL)
+        guard let token = defaults.value(forKey: "token") else {return}
+        let requestURL = URL(string: "https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/Taipei/\(route)?%24format=JSON)")!
+        var request = URLRequest(url: requestURL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -152,7 +153,7 @@ class GetBusInfo {
                     }
                 }
                 
-                self.delegate.didGetBusDepNDes(data: busStops)
+                self.delegate.didGetBusStops(data: busStops)
                 
             } catch {
                 print(error)

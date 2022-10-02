@@ -71,16 +71,10 @@ extension ViewController: BusInfoDelegate {
         }
     }
     
-    func didGetBusDepNDes(data: String) {
-        //        DispatchQueue.main.async {
-        //            self.busInfoTextView.text = data
-        //        }
+    func didGetBusDepNDes(data: [String : String]) {
     }
     
     func didGetBusStops(data: String) {
-        //        DispatchQueue.main.async {
-        //            self.busInfoTextView.text = data
-        //        }
     }
 }
 
@@ -96,8 +90,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering() {
             return filteredBusRouteList.count
+        } else {
+            return busRouteList.count
         }
-        return busRouteList.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -117,6 +113,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let busRouteInfoViewController = BusRouteInfo()
+        
+        if isFiltering() {
+            busRouteInfoViewController.busRoute = filteredBusRouteList[indexPath.row]
+        } else {
+            busRouteInfoViewController.busRoute = busRouteList[indexPath.row]
+        }
+        
+        self.navigationController?.pushViewController(busRouteInfoViewController, animated: true)
+    }
 }
 
 extension ViewController {
@@ -134,5 +142,10 @@ extension ViewController {
 extension ViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterBusRouteForSearchText(searchText: searchBar.text ?? "")
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchController.isActive = false
+        tableView.reloadData()
     }
 }
