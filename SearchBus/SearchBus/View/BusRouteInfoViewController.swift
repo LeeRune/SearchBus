@@ -22,19 +22,26 @@ class BusRouteInfoViewController: UIViewController, UIPageViewControllerDelegate
         return segmentedControl
     }()
     
-    lazy var pageViewControl: UIPageViewController = {
-        var pageViewControl = UIPageViewController()
-        pageViewControl.view.translatesAutoresizingMaskIntoConstraints = false
+    lazy var pageVC: UIPageViewController = {
+        var pageVC = UIPageViewController()
+        pageVC.view.translatesAutoresizingMaskIntoConstraints = false
 
-        pageViewControl = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        pageVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         
-        pageViewControl.delegate = self
-        pageViewControl.isEditing = true
+        pageVC.delegate = self
+        pageVC.isEditing = true
         
-        return pageViewControl
+        return pageVC
     }()
     
-    let busStopRouteViewController = BusStopRouteViewController()
+    lazy var loadingVC: UIViewController = {
+        let loadingVC = LoadingViewController()
+        loadingVC.view.tag = 100
+        
+        return loadingVC
+    }()
+    
+    let busStopRouteVC = BusStopRouteViewController()
     
     var busRoute: String = ""
     
@@ -47,13 +54,17 @@ class BusRouteInfoViewController: UIViewController, UIPageViewControllerDelegate
         getBusInfo.getBusDepNDes(route: busRoute)
         getBusInfo.getBusStops(route: busRoute, direction: 0)
         
-        self.setupElements()
+        if busStopRouteVC.directionDepStops.isEmpty && busStopRouteVC.directionDesStops.isEmpty {
+            setupLoadingView()
+        } else {
+            setupElements()
+        }
     }
     
     @objc func onChange(sender: UISegmentedControl) {
         print(sender.selectedSegmentIndex)
-        busStopRouteViewController.depOrDesIndex = sender.selectedSegmentIndex
-        busStopRouteViewController.reloadTableView()
+        busStopRouteVC.depOrDesIndex = sender.selectedSegmentIndex
+        busStopRouteVC.reloadTableView()
     }
 }
 
@@ -62,8 +73,8 @@ extension BusRouteInfoViewController {
     func setupElements() {
         self.navigationItem.title = busRoute
         
-        self.addChild(pageViewControl)
-        self.view.addSubview(pageViewControl.view)
+        self.addChild(pageVC)
+        self.view.addSubview(pageVC.view)
         
         self.view.addSubview(segmentedControl)
         
@@ -72,9 +83,23 @@ extension BusRouteInfoViewController {
         segmentedControl.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor).isActive = true
         segmentedControl.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor).isActive = true
         
-        pageViewControl.view.frame = CGRect.init(x: 0, y: 140, width: self.view.frame.width, height: self.view.frame.height - 140)
+        pageVC.view.frame = CGRect.init(x: 0, y: 140, width: self.view.frame.width, height: self.view.frame.height - 140)
     
-        pageViewControl.setViewControllers([busStopRouteViewController], direction: .forward, animated: false)
+        pageVC.setViewControllers([busStopRouteVC], direction: .forward, animated: false)
+    }
+    
+    func setupLoadingView() {
+        self.addChild(loadingVC)
+        view.addSubview(loadingVC.view)
+        loadingVC.didMove(toParent: self.navigationController)
+    }
+    
+    func removeLoadingView(){
+        guard let viewWithTag = self.loadingVC.view.viewWithTag(100) else {
+            return
+        }
+        
+        viewWithTag.removeFromSuperview()
     }
 }
 
@@ -99,9 +124,11 @@ extension BusRouteInfoViewController: BusInfoDelegate {
         guard let directionDes = data["directionDes"] else {return}
         
         DispatchQueue.main.async {
-            self.busStopRouteViewController.directionDepStops = directionDep
-            self.busStopRouteViewController.directionDesStops = directionDes
-            self.busStopRouteViewController.reloadTableView()
+            self.busStopRouteVC.directionDepStops = directionDep
+            self.busStopRouteVC.directionDesStops = directionDes
+            self.busStopRouteVC.reloadTableView()
+            self.removeLoadingView()
+            self.setupElements()
         }
     }
 }

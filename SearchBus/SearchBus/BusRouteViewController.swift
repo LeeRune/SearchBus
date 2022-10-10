@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class BusRouteViewController: UIViewController {
     
     lazy var tableView: UITableView = {
         let tv = UITableView()
@@ -32,6 +32,13 @@ class ViewController: UIViewController {
         return s
     }()
     
+    lazy var loadingVC: UIViewController = {
+        let loadingVC = LoadingViewController()
+        loadingVC.view.tag = 100
+        
+        return loadingVC
+    }()
+    
     let getBusInfo: GetBusInfo = GetBusInfo()
     var busRouteList: [String] = []
     var filteredBusRouteList: [String] = []
@@ -42,9 +49,17 @@ class ViewController: UIViewController {
         title = "search"
         navigationItem.searchController = searchController
         
+        print(busRouteList.isEmpty)
+        
+        if busRouteList.isEmpty {
+            setupLoadingView()
+        } else {
+            setupElements()
+        }
+        
         getBusInfo.delegate = self
         getBusInfo.getToken()
-        setupElements()
+        
     }
     
     func filterBusRouteForSearchText(searchText: String) {
@@ -63,10 +78,13 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: BusInfoDelegate {
+extension BusRouteViewController: BusInfoDelegate {
     func didGetBusRoute(data: [String]) {
         self.busRouteList = data
         DispatchQueue.main.async {
+            self.navigationController?.navigationBar.layer.zPosition = 0
+            self.removeLoadingView()
+            self.setupElements()
             self.tableView.reloadData()
         }
     }
@@ -78,7 +96,7 @@ extension ViewController: BusInfoDelegate {
     }
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension BusRouteViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
@@ -127,7 +145,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ViewController {
+extension BusRouteViewController {
     
     func setupElements() {
         view.addSubview(tableView)
@@ -137,9 +155,26 @@ extension ViewController {
         tableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor).isActive = true
     }
+    
+    func setupLoadingView() {
+        
+        self.navigationController?.navigationBar.layer.zPosition = -1
+        
+        self.addChild(loadingVC)
+        view.addSubview(loadingVC.view)
+        loadingVC.didMove(toParent: self.navigationController)
+    }
+    
+    func removeLoadingView(){
+        guard let viewWithTag = self.loadingVC.view.viewWithTag(100) else {
+            return
+        }
+        
+        viewWithTag.removeFromSuperview()
+    }
 }
 
-extension ViewController: UISearchBarDelegate {
+extension BusRouteViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterBusRouteForSearchText(searchText: searchBar.text ?? "")
     }
