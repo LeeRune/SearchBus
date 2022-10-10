@@ -134,24 +134,35 @@ class GetBusInfo {
                 let decoder = JSONDecoder()
                 let response = try decoder.decode([BusStopOfRoute].self, from: data)
                 
-                var busStops : String = ""
+                
+                var busStops = [String: [BusStops]]()
                 
                 for response in response{
-                    guard let routeName = response.RouteName?.Zh_tw else {return}
-                    
                     let direction = response.Direction
                     
-                    let stops = response.Stops
-                    
-                    if routeName == "617" && direction == direction {
-                        for stops in stops {
-                            
-                            guard let stopName = stops.StopName?.Zh_tw else {return}
-                            busStops = busStops + stopName + "\n"
-                        }
-                        break
+                    if direction == 0 {
+                        busStops.updateValue(response.Stops, forKey: "directionDep")
+                    } else {
+                        busStops.updateValue(response.Stops, forKey: "directionDes")
                     }
                 }
+                
+//                for response in response{
+//                    guard let routeName = response.RouteName?.Zh_tw else {return}
+//
+//                    let direction = response.Direction
+//
+//                    let stops = response.Stops
+//
+//                    if routeName == "617" && direction == direction {
+//                        for stops in stops {
+//
+//                            guard let stopName = stops.StopName?.Zh_tw else {return}
+//                            busStops = busStops + stopName + "\n"
+//                        }
+//                        break
+//                    }
+//                }
                 
                 self.delegate.didGetBusStops(data: busStops)
                 

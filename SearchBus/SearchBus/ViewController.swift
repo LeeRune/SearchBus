@@ -74,7 +74,7 @@ extension ViewController: BusInfoDelegate {
     func didGetBusDepNDes(data: [String : String]) {
     }
     
-    func didGetBusStops(data: String) {
+    func didGetBusStops(data: [String : [BusStops]]) {
     }
 }
 
@@ -115,7 +115,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let busRouteInfoViewController = BusRouteInfo()
+        let busRouteInfoViewController = BusRouteInfoViewController()
         
         if isFiltering() {
             busRouteInfoViewController.busRoute = filteredBusRouteList[indexPath.row]
