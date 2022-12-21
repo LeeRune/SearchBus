@@ -8,20 +8,38 @@
 
 /* Begin PBXBuildFile section */
 		14B43A4C28D758F300DD8E76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A4B28D758F300DD8E76 /* AppDelegate.swift */; };
-		14B43A4E28D758F300DD8E76 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A4D28D758F300DD8E76 /* SceneDelegate.swift */; };
-		14B43A5028D758F300DD8E76 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A4F28D758F300DD8E76 /* ViewController.swift */; };
+		14B43A5028D758F300DD8E76 /* BusRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A4F28D758F300DD8E76 /* BusRouteViewController.swift */; };
 		14B43A5528D758F700DD8E76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14B43A5428D758F700DD8E76 /* Assets.xcassets */; };
 		14B43A5828D758F700DD8E76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14B43A5628D758F700DD8E76 /* LaunchScreen.storyboard */; };
+		14B43A6128D7603800DD8E76 /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A6028D7603800DD8E76 /* BusRoute.swift */; };
+		14B43A6328D76BCB00DD8E76 /* TDXToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A6228D76BCB00DD8E76 /* TDXToken.swift */; };
+		14B43A6528DCA92000DD8E76 /* BusDepNDes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A6428DCA92000DD8E76 /* BusDepNDes.swift */; };
+		14B43A6728DCAD8C00DD8E76 /* BusStopOfRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A6628DCAD8C00DD8E76 /* BusStopOfRoute.swift */; };
+		14B43A6928DEBDA800DD8E76 /* BusInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A6828DEBDA800DD8E76 /* BusInfoDelegate.swift */; };
+		14B43A7128DEC25D00DD8E76 /* GetBusInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A7028DEC25D00DD8E76 /* GetBusInfo.swift */; };
+		14B43A7428DEE56F00DD8E76 /* BusRouteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A7328DEE56F00DD8E76 /* BusRouteCell.swift */; };
+		14B43A7A28F41F0400DD8E76 /* BusStopRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A7928F41F0400DD8E76 /* BusStopRouteViewController.swift */; };
+		14B43A7C28F41F3E00DD8E76 /* BusRouteInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A7B28F41F3E00DD8E76 /* BusRouteInfoViewController.swift */; };
+		14B43A7E28F44E9B00DD8E76 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B43A7D28F44E9B00DD8E76 /* LoadingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		14B43A4828D758F300DD8E76 /* SearchBus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchBus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14B43A4B28D758F300DD8E76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		14B43A4D28D758F300DD8E76 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		14B43A4F28D758F300DD8E76 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		14B43A4F28D758F300DD8E76 /* BusRouteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRouteViewController.swift; sourceTree = "<group>"; };
 		14B43A5428D758F700DD8E76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14B43A5728D758F700DD8E76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		14B43A5928D758F700DD8E76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		14B43A6028D7603800DD8E76 /* BusRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRoute.swift; sourceTree = "<group>"; };
+		14B43A6228D76BCB00DD8E76 /* TDXToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDXToken.swift; sourceTree = "<group>"; };
+		14B43A6428DCA92000DD8E76 /* BusDepNDes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusDepNDes.swift; sourceTree = "<group>"; };
+		14B43A6628DCAD8C00DD8E76 /* BusStopOfRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopOfRoute.swift; sourceTree = "<group>"; };
+		14B43A6828DEBDA800DD8E76 /* BusInfoDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusInfoDelegate.swift; sourceTree = "<group>"; };
+		14B43A7028DEC25D00DD8E76 /* GetBusInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBusInfo.swift; sourceTree = "<group>"; };
+		14B43A7328DEE56F00DD8E76 /* BusRouteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRouteCell.swift; sourceTree = "<group>"; };
+		14B43A7928F41F0400DD8E76 /* BusStopRouteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopRouteViewController.swift; sourceTree = "<group>"; };
+		14B43A7B28F41F3E00DD8E76 /* BusRouteInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusRouteInfoViewController.swift; sourceTree = "<group>"; };
+		14B43A7D28F44E9B00DD8E76 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +72,47 @@
 		14B43A4A28D758F300DD8E76 /* SearchBus */ = {
 			isa = PBXGroup;
 			children = (
+				14B43A7228DEE55D00DD8E76 /* View */,
+				14B43A5F28D75FFC00DD8E76 /* Model */,
 				14B43A4B28D758F300DD8E76 /* AppDelegate.swift */,
-				14B43A4D28D758F300DD8E76 /* SceneDelegate.swift */,
-				14B43A4F28D758F300DD8E76 /* ViewController.swift */,
+				14B43A4F28D758F300DD8E76 /* BusRouteViewController.swift */,
 				14B43A5428D758F700DD8E76 /* Assets.xcassets */,
 				14B43A5628D758F700DD8E76 /* LaunchScreen.storyboard */,
 				14B43A5928D758F700DD8E76 /* Info.plist */,
 			);
 			path = SearchBus;
+			sourceTree = "<group>";
+		};
+		14B43A5F28D75FFC00DD8E76 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				14B43A6028D7603800DD8E76 /* BusRoute.swift */,
+				14B43A6428DCA92000DD8E76 /* BusDepNDes.swift */,
+				14B43A6228D76BCB00DD8E76 /* TDXToken.swift */,
+				14B43A6628DCAD8C00DD8E76 /* BusStopOfRoute.swift */,
+				14B43A6828DEBDA800DD8E76 /* BusInfoDelegate.swift */,
+				14B43A7028DEC25D00DD8E76 /* GetBusInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		14B43A7228DEE55D00DD8E76 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				14B43A7628E95A1400DD8E76 /* Cell */,
+				14B43A7928F41F0400DD8E76 /* BusStopRouteViewController.swift */,
+				14B43A7B28F41F3E00DD8E76 /* BusRouteInfoViewController.swift */,
+				14B43A7D28F44E9B00DD8E76 /* LoadingViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		14B43A7628E95A1400DD8E76 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				14B43A7328DEE56F00DD8E76 /* BusRouteCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,9 +185,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14B43A5028D758F300DD8E76 /* ViewController.swift in Sources */,
+				14B43A6728DCAD8C00DD8E76 /* BusStopOfRoute.swift in Sources */,
+				14B43A6928DEBDA800DD8E76 /* BusInfoDelegate.swift in Sources */,
+				14B43A5028D758F300DD8E76 /* BusRouteViewController.swift in Sources */,
 				14B43A4C28D758F300DD8E76 /* AppDelegate.swift in Sources */,
-				14B43A4E28D758F300DD8E76 /* SceneDelegate.swift in Sources */,
+				14B43A7A28F41F0400DD8E76 /* BusStopRouteViewController.swift in Sources */,
+				14B43A7C28F41F3E00DD8E76 /* BusRouteInfoViewController.swift in Sources */,
+				14B43A6328D76BCB00DD8E76 /* TDXToken.swift in Sources */,
+				14B43A6128D7603800DD8E76 /* BusRoute.swift in Sources */,
+				14B43A7128DEC25D00DD8E76 /* GetBusInfo.swift in Sources */,
+				14B43A6528DCA92000DD8E76 /* BusDepNDes.swift in Sources */,
+				14B43A7428DEE56F00DD8E76 /* BusRouteCell.swift in Sources */,
+				14B43A7E28F44E9B00DD8E76 /* LoadingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
